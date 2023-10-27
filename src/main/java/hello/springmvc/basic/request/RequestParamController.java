@@ -26,6 +26,12 @@ public class RequestParamController {
         response.getWriter().write("ok");
     }
 
+    /**
+     * @RequestParam 사용
+     * - 파라미터 이름으로 바인딩
+     * @ResponseBody 추가
+     * - View 조회를 무시하고, HTTP message body에 직접 해당 내용 입력
+     */
     @ResponseBody
     @RequestMapping("/request-param-v2")
     public String requestParamV2(
@@ -36,6 +42,10 @@ public class RequestParamController {
         return "ok";
     }
 
+    /**
+     * @RequestParam 사용
+     * HTTP 파라미터 이름이 변수 이름과 같으면 @RequestParam`(name = xx)` 생략 가능
+     */
     @ResponseBody
     @RequestMapping("/request-param-v3")
     public String requestParamV3(
@@ -46,6 +56,10 @@ public class RequestParamController {
         return "ok";
     }
 
+    /**
+     * @RequestParam 사용
+     * String, int 등의 단순 타입이면 @RequestParam도 생략 가능
+     */
     @ResponseBody
     @RequestMapping("/request-param-v4")
     public String requestParamV4(String username, int age) {
@@ -53,6 +67,17 @@ public class RequestParamController {
         return "ok";
     }
 
+    /**
+     * @RequestParam.required
+     * /request-param -> username이 없으므로 예외
+     *
+     * !주의
+     * /request-param?username= -> 빈 문자열로 통과
+     *
+     * !주의
+     * /request-param
+     * int age -> null을 int에 입력하는 것은 불가능, 따라서 Integer로 변경해야함 (또는 다음에 나오는 defaultValue 사용)
+     */
     @ResponseBody
     @RequestMapping("/request-param-required")
     public String requestParamRequired(
